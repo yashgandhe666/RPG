@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 428d923debb835541b61af7abdb88dce, type: 3}
+  m_Name: Collect Objects
+  m_EditorClassIdentifier: 
+  QuestName: Collect Objects
+  objectives:
+  - {fileID: 11400000, guid: 3b60f6cbfbdef5844afe657d00aeee4a, type: 2}
+  - {fileID: 11400000, guid: 895a7285d412cb044b8d5d62a8e72709, type: 2}
+  - {fileID: 11400000, guid: a6144c8669b7c17419a5e51f794b0bd2, type: 2}
+  - {fileID: 11400000, guid: 24f6d4116458d6a4e99378c04e0a67ca, type: 2}

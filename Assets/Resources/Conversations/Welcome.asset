@@ -1,0 +1,97 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d3d921fdfc9c944bace9192dd24b120, type: 3}
+  m_Name: Welcome
+  m_EditorClassIdentifier: 
+  conversationName: Welcome
+  actorPrefabs:
+  - {fileID: 114982913982918180, guid: 380fe5c30aaacbe4bae8e7bcf60afd8f, type: 2}
+  - {fileID: 114106471679461212, guid: b8491b946a03bf34ab400b51186a958b, type: 2}
+  - {fileID: 114551664909261258, guid: 3a4bd38812bc0b64294b82ff5de6cb0d, type: 2}
+  - {fileID: 114952916354426504, guid: 9f914b09d0204a746b7ae08d1bd252a2, type: 2}
+  - {fileID: 114613722258922006, guid: 109ac1cc3c1a40e42ad42fe079ff69f7, type: 2}
+  speechBubbles:
+  - {fileID: 114041948989154958, guid: 6b93f72c90428a6408486f17aa1e3f1a, type: 2}
+  - {fileID: 114383884806144828, guid: 3bd976cb202da374c8618b131ad1a603, type: 2}
+  dialogues:
+  - Position: {x: 10, y: 10}
+    dialogueID: 1
+    characterName: 
+    speechBubbleName: Simple
+    sentence: 
+    childDialogueIDs: 02000000
+  - Position: {x: 10, y: 90}
+    dialogueID: 2
+    characterName: GameManger
+    speechBubbleName: Simple
+    sentence: 
+    childDialogueIDs: 030000000500000006000000
+  - Position: {x: 10, y: 170}
+    dialogueID: 3
+    characterName: GameManger
+    speechBubbleName: Simple
+    sentence: 
+    childDialogueIDs: 04000000
+  - Position: {x: 10, y: 250}
+    dialogueID: 4
+    characterName: GameManger
+    speechBubbleName: Simple
+    sentence: 
+    childDialogueIDs: 090000000a000000
+  - Position: {x: 220, y: 170}
+    dialogueID: 5
+    characterName: GameManger
+    speechBubbleName: Simple
+    sentence: 
+    childDialogueIDs: 07000000
+  - Position: {x: 430, y: 170}
+    dialogueID: 6
+    characterName: GameManger
+    speechBubbleName: Simple
+    sentence: 
+    childDialogueIDs: 08000000
+  - Position: {x: 220, y: 250}
+    dialogueID: 7
+    characterName: GameManger
+    speechBubbleName: Simple
+    sentence: 
+    childDialogueIDs: 
+  - Position: {x: 430, y: 250}
+    dialogueID: 8
+    characterName: GameManger
+    speechBubbleName: Simple
+    sentence: 
+    childDialogueIDs: 
+  - Position: {x: 10, y: 330}
+    dialogueID: 9
+    characterName: GameManger
+    speechBubbleName: Simple
+    sentence: 
+    childDialogueIDs: 0b0000000c000000
+  - Position: {x: 220, y: 330}
+    dialogueID: 10
+    characterName: GameManger
+    speechBubbleName: Simple
+    sentence: 
+    childDialogueIDs: 
+  - Position: {x: 10, y: 410}
+    dialogueID: 11
+    characterName: GameManger
+    speechBubbleName: Simple
+    sentence: 
+    childDialogueIDs: 
+  - Position: {x: 220, y: 410}
+    dialogueID: 12
+    characterName: GameManger
+    speechBubbleName: Simple
+    sentence: 
+    childDialogueIDs: 
+  quests: []

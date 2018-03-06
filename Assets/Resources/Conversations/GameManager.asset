@@ -1,0 +1,117 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d3d921fdfc9c944bace9192dd24b120, type: 3}
+  m_Name: GameManager
+  m_EditorClassIdentifier: 
+  conversationName: GameManager
+  actorPrefabs:
+  - {fileID: 114952916354426504, guid: 9f914b09d0204a746b7ae08d1bd252a2, type: 2}
+  speechBubbles:
+  - {fileID: 114383884806144828, guid: 3bd976cb202da374c8618b131ad1a603, type: 2}
+  - {fileID: 114041948989154958, guid: 6b93f72c90428a6408486f17aa1e3f1a, type: 2}
+  dialogues:
+  - Position: {x: 10, y: 10}
+    dialogueID: 1
+    characterName: EnemyArchery
+    speechBubbleName: Response
+    sentence: Hello Friend
+    childDialogueIDs: 02000000
+  - Position: {x: 10, y: 90}
+    dialogueID: 2
+    characterName: EnemyArchery
+    speechBubbleName: Response
+    sentence: Hello Master
+    childDialogueIDs: 0300000008000000
+  - Position: {x: 10, y: 170}
+    dialogueID: 3
+    characterName: EnemyArchery
+    speechBubbleName: Response
+    sentence: How can i help you?
+    childDialogueIDs: 0400000005000000
+  - Position: {x: 10, y: 250}
+    dialogueID: 4
+    characterName: EnemyArchery
+    speechBubbleName: Response
+    sentence: You can Help me by Dess..
+    childDialogueIDs: 07000000
+  - Position: {x: 220, y: 250}
+    dialogueID: 5
+    characterName: EnemyArchery
+    speechBubbleName: Response
+    sentence: 
+    childDialogueIDs: 060000000b000000
+  - Position: {x: 220, y: 330}
+    dialogueID: 6
+    characterName: EnemyArchery
+    speechBubbleName: Response
+    sentence: Hell0
+    childDialogueIDs: 09000000
+  - Position: {x: 10, y: 330}
+    dialogueID: 7
+    characterName: EnemyArchery
+    speechBubbleName: Response
+    sentence: Jack
+    childDialogueIDs: 0a000000
+  - Position: {x: 220, y: 170}
+    dialogueID: 8
+    characterName: EnemyArchery
+    speechBubbleName: Response
+    sentence: Call
+    childDialogueIDs: 
+  - Position: {x: 220, y: 410}
+    dialogueID: 9
+    characterName: EnemyArchery
+    speechBubbleName: Response
+    sentence: Call
+    childDialogueIDs: 0f000000
+  - Position: {x: 10, y: 410}
+    dialogueID: 10
+    characterName: EnemyArchery
+    speechBubbleName: Response
+    sentence: Call
+    childDialogueIDs: 0c000000
+  - Position: {x: 430, y: 330}
+    dialogueID: 11
+    characterName: EnemyArchery
+    speechBubbleName: Response
+    sentence: Call
+    childDialogueIDs: 
+  - Position: {x: 10, y: 490}
+    dialogueID: 12
+    characterName: EnemyArchery
+    speechBubbleName: Response
+    sentence: 
+    childDialogueIDs: 0d000000
+  - Position: {x: 10, y: 570}
+    dialogueID: 13
+    characterName: EnemyArchery
+    speechBubbleName: Response
+    sentence: 
+    childDialogueIDs: 0e000000
+  - Position: {x: 10, y: 650}
+    dialogueID: 14
+    characterName: EnemyArchery
+    speechBubbleName: Response
+    sentence: 
+    childDialogueIDs: 
+  - Position: {x: 220, y: 490}
+    dialogueID: 15
+    characterName: EnemyArchery
+    speechBubbleName: Response
+    sentence: 
+    childDialogueIDs: 10000000
+  - Position: {x: 220, y: 570}
+    dialogueID: 16
+    characterName: EnemyArchery
+    speechBubbleName: Response
+    sentence: 
+    childDialogueIDs: 
+  quests: []

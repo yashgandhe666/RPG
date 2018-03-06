@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fafe66084bfd9a345905cb0bef2981cd, type: 3}
+  m_Name: Archery
+  m_EditorClassIdentifier: 
+  CharName: Archery
+  CharIcon: {fileID: 21300000, guid: 71210a39dc4628242a9e9e32bb4688a7, type: 3}
+  Health: 100
+  Energy: 400
+  Initiative: 2
+  Threat: 3
+  ShieldPower: 40
