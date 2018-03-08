@@ -7,13 +7,25 @@ public class NPCGameManager : NPC
 
     protected override void Start()
     {
-        uiPanel = gameObject.transform.Find("UIPanel").gameObject;
-        uiPanel.SetActive(false);
+        if (gameObject.transform.Find("UIPanel"))
+            uiPanel = gameObject.transform.Find("UIPanel").gameObject;
+        if (uiPanel != null)
+            uiPanel.SetActive(false);
         base.Start();
     }
 
     public override void RecieveClickEvent(Collider2D collider)
     {
+        if (Collider2d == collider)
+        {
+            CanvasUIHandler.Instance.DisbleSelectedPlayerStats();
+        }
+
+        if (uiPanel == null)
+        {
+            return;
+        }
+
         if(FightManager.Instance != null)
         {
             return;

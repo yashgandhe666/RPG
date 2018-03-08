@@ -29,4 +29,11 @@ namespace Knights.Enums
         Collect,
         Kill,
     }
+
+    public enum DialogueType
+    {
+        Simple,
+        Question,
+        Answers,
+    }
 }

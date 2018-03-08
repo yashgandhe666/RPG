@@ -35,7 +35,7 @@ namespace Knights.Characters.Players
 
             IsItMyTurn = false;
             typeOfFighter = TypeOfFighter.Player;
-            GameManager.Instance.AddPlayer(this);
+            //GameManager.Instance.AddPlayer(this);
             Initialize();
         }
 
@@ -100,6 +100,7 @@ namespace Knights.Characters.Players
                 powerUIGameObjects.Add(gm);
                 gm.transform.SetParent(uiContainer.transform);
                 gm.transform.position = new Vector3(uiContainer.transform.position.x - x_pos, uiContainer.transform.position.y, 0f);
+                gm.transform.localScale = Vector3.one;
                 gm.transform.Find("Icon").GetComponent<SpriteRenderer>().sprite = powers[i].Icon;
                 PowerUIButton pwButton = gm.AddComponent<PowerUIButton>();
                 pwButton.powerIndex = i;
@@ -118,13 +119,12 @@ namespace Knights.Characters.Players
 
         public override void RecieveClickEvent(Collider2D collider)
         {
-            base.RecieveClickEvent(collider);
-
             if (!gameObject.activeSelf)
                 return;
 
-            if (collider == Collider2d)
+            if (Collider2d == collider)
             {
+                CanvasUIHandler.Instance.ShowSelectedPlayerStats(CharacterStats);
                 ShowPowersUI();
             }
             else
@@ -132,7 +132,7 @@ namespace Knights.Characters.Players
                 DestroyPowerUI();
             }
 
-            if (IsItMyTurn)
+            if (IsItMyTurn && FightManager.Instance != null)
             {
                 if (collider != null)
                 {
@@ -145,10 +145,6 @@ namespace Knights.Characters.Players
                         Attack(enemy);
                     }
                 }
-            }
-            else
-            {
-                base.RecieveClickEvent(collider);
             }
         }
     }

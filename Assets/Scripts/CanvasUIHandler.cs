@@ -11,6 +11,7 @@ public class CanvasUIHandler : MonoBehaviour
     public GameObject FightUIPanel;
     public GameObject FightStatusUIPanel;
     public GameObject SelectedCharacterStatsInfoPanel;
+    public GameObject DialogueUIPanel;
 
     [Header("Sub UI Panel")]
     public GameObject QuestPresentPanel;
@@ -20,6 +21,7 @@ public class CanvasUIHandler : MonoBehaviour
     public GameObject QuestInformationContainer;
     public GameObject ObjectiveContainer;
     public GameObject CharacterStatsInfoContainer;
+    public GameObject DialogueContainer;
 
     [Header("Prefabs")]
     public GameObject QuestInformationPrefab;
@@ -173,7 +175,7 @@ public class CanvasUIHandler : MonoBehaviour
         }
     }
 
-    public void ShowSelectedCharacterStats(CharacterStats characterStats)
+    public void ShowSelectedPlayerStats(CharacterStats characterStats)
     {
         DestroyAllClonePrefabsOfContainer();
         SelectedCharacterStatsInfoPanel.SetActive(true);
@@ -199,6 +201,12 @@ public class CanvasUIHandler : MonoBehaviour
                 prefabsCloneOfContainer.Add(gm);
             }
         }
+    }
+
+    public void DisbleSelectedPlayerStats()
+    {
+        DestroyAllClonePrefabsOfContainer();
+        SelectedCharacterStatsInfoPanel.SetActive(false);
     }
 
     private void DestroyAllClonePrefabsOfContainer()

@@ -28,5 +28,13 @@ namespace Knights.Characters.NPC
             
             base.Die();
         }
+
+        public override void RecieveClickEvent(Collider2D collider)
+        {
+            if (Collider2d == collider)
+            {
+                CanvasUIHandler.Instance.DisbleSelectedPlayerStats();
+            }
+        }
     }
 }

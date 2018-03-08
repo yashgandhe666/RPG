@@ -1,20 +1,17 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using Knights.Enums;
 
 public sealed class ConversationManager : MonoBehaviour
 {
     public static ConversationManager Instance { get; private set; }
     public bool IsConversationRunning { get; private set; }
 
-    public GameObject ResponseContent;
-    public GameObject ResponseGameObject;
-
-    private List<GameObject> responseGameObjectList;
+    private List<GameObject> dialogueTextGameObjectList;
     private Conversation currentConversation;
     private Dialogue currentDialogue;
-
-    private GameObject bubbleCanvas;
+    private bool isShowingAnswers;
 
     private void Awake()
     {
@@ -30,14 +27,17 @@ public sealed class ConversationManager : MonoBehaviour
 
     private void Start()
     {
-        responseGameObjectList = new List<GameObject>();
+        dialogueTextGameObjectList = new List<GameObject>();
         InputManager.Instance.OnClickOnScreenContConv += ContinueConversation;
-        LoadWelcomeConversation();
+        isShowingAnswers = false;
+        //LoadWelcomeConversation();
     }
 
+    [ContextMenu("Load Welcome")]
     private void LoadWelcomeConversation()
     {
-        LoadConversation("Welcome");
+        if (Application.isPlaying)
+            LoadConversation("Welcome");
     }
 
     public void LoadConversation(string conversationName)
@@ -46,112 +46,130 @@ public sealed class ConversationManager : MonoBehaviour
         if(currentConversation == null)
         {
             Debug.LogWarning("There is no conversation with " + conversationName + " in Resources/Conversations folder...");
+            return;
         }
-
+        
         ActivateConversation();
     }
 
-    public void ActivateConversation()
+    private void ActivateConversation()
     {
-        IsConversationRunning = true;
         currentDialogue = currentConversation.Dialogues[0];
         if (currentDialogue == null)
         {
             Debug.Log("There is dialogues in current ...");
             return;
         }
-        ShowDialogue();
+
+        IsConversationRunning = true;
+        CanvasUIHandler.Instance.DialogueUIPanel.SetActive(true);
+
+        GameObject gm = CreateDialogueTextGameObject(currentDialogue);
+        if (gm != null)
+        {
+            dialogueTextGameObjectList.Add(gm);
+        }
     }
 
+    // Call by ClickOnScreen events
     public void ContinueConversation()
     {
-        if (bubbleCanvas != null)
+        ShowDialogues();
+    }
+
+    private void ShowDialogues()
+    {
+        if(currentDialogue.ChildDialogueIDs.Count <= 0)
         {
-            Destroy(bubbleCanvas);
-            bubbleCanvas = null;
+            CompleteConversation();
+            return;
         }
 
-        foreach (var item in responseGameObjectList)
+        if(isShowingAnswers)
         {
-            Destroy(item);
+            Debug.Log("Resposing....");
+            return;
         }
 
-        responseGameObjectList.Clear();
+        DestroyListDialogueTextGameObject();
 
-        if (currentDialogue.ChildDialogueIDs.Count > 0)
+        if (currentDialogue.TypeOfDialogue == DialogueType.Question)
         {
-            if (currentDialogue.GetDialogueType() == Dialogue.DialogueType.Simple)
+            foreach (var childID in currentDialogue.ChildDialogueIDs)
             {
-                currentDialogue = currentConversation.FindDialogueWithID(currentDialogue.ChildDialogueIDs[0]);
-
-                if (currentConversation != null)
+                Dialogue dialogue = currentConversation.FindDialogueWithID(childID);
+                if (dialogue == null)
                 {
-                    ShowDialogue();
+                    continue;
                 }
-                else
+                GameObject gm = CreateDialogueTextGameObject(dialogue);
+                Button bt = gm.AddComponent<Button>();
+                bt.onClick.AddListener(delegate { NextDiaolugeButton(childID); });
+                if (gm != null)
                 {
-                    CompleteConversation();
+                    dialogueTextGameObjectList.Add(gm);
                 }
             }
-            else
-            {
-                foreach (var dialogueID in currentDialogue.ChildDialogueIDs)
-                {
-                    GameObject gm = Instantiate(ResponseGameObject, transform.position, Quaternion.identity);
-                    gm.transform.SetParent(ResponseContent.transform);
-                    Text text = gm.GetComponentInChildren<Text>();
-                    Dialogue response = currentConversation.FindDialogueWithID(dialogueID);
-                    if (text != null && response != null)
-                    {
-                        text.text = response.Sentence;
-                        responseGameObjectList.Add(gm);
-                    }
-                    else if(response == null)
-                    {
-                        Debug.LogWarning("Response is null");
-                        Destroy(gm);
-                    }                    
-                }
-            }
+            isShowingAnswers = true;
         }
         else
         {
-            CompleteConversation();
+            currentDialogue = currentConversation.FindDialogueWithID(currentDialogue.ChildDialogueIDs[0]);
+            GameObject gm = CreateDialogueTextGameObject(currentDialogue);
+            if (gm != null)
+            {
+                dialogueTextGameObjectList.Add(gm);
+            }
         }
     }
 
-    private void ShowDialogue()
+    private GameObject CreateDialogueTextGameObject(Dialogue dialogue)
     {
-        if (bubbleCanvas != null)
+        if(dialogue == null)
         {
-            Destroy(bubbleCanvas);
+            CompleteConversation();
+            return null;
         }
 
-        SpeechBubble bubble = currentConversation.FindSpeechBubbleWithName(currentDialogue.SpeechBubbleName);
+        SpeechBubble bubble = currentConversation.SpeechBubbles[dialogue.SpeechBubbleIndex];
         if (bubble != null)
         {
             GameObject gm = bubble.gameObject;
-
             if (gm != null)
             {
-                bubbleCanvas = Instantiate(gm, transform.position, Quaternion.identity);
+                gm = Instantiate(gm, transform.position, Quaternion.identity);
+                gm.transform.SetParent(CanvasUIHandler.Instance.DialogueContainer.transform);
             }
 
-            Text dialogueText = bubbleCanvas.GetComponentInChildren<Text>();
-
-            dialogueText.text = currentDialogue.Sentence;
-
-            Debug.Log("Dialogue is shown...");
+            Text dialogueText = gm.GetComponentInChildren<Text>();
+            dialogueText.text = dialogue.Sentence;
+            return gm;
         }
-        else
+        return null;
+    }
+
+    public void NextDiaolugeButton(int childID)
+    {
+        Debug.Log("Button : " + childID);
+        currentDialogue = currentConversation.FindDialogueWithID(childID);
+        isShowingAnswers = false;
+        ShowDialogues();
+    }
+
+    private void DestroyListDialogueTextGameObject()
+    {
+        foreach (var item in dialogueTextGameObjectList)
         {
-            Debug.Log("Speech bubble is null");
+            Destroy(item);
         }
+        dialogueTextGameObjectList.Clear();
     }
 
     private void CompleteConversation()
     {
+        DestroyListDialogueTextGameObject();
         IsConversationRunning = false;
+        CanvasUIHandler.Instance.DialogueUIPanel.SetActive(false);
         if (currentConversation.GetAllQuest().Count > 0)
         {
             QuestManager.Instance.AddQuestToList(currentConversation.GetAllQuest());

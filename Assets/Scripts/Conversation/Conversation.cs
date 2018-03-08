@@ -2,6 +2,7 @@
 using UnityEngine;
 using Knights.Characters;
 using Knights.QuestSystem;
+using Knights.Enums;
 
 public class Conversation : ScriptableObject
 {
@@ -55,19 +56,6 @@ public class Conversation : ScriptableObject
         return null;
     }
 
-    public SpeechBubble FindSpeechBubbleWithName(string _name)
-    {
-        foreach (var item in speechBubbles)
-        {
-            if(item.SpeechBubbleName == _name)
-            {
-                return item;
-            }
-        }
-
-        return null;
-    }
-
     public int GetTotalDialogueCount()
     {
         return dialogues.Count;
@@ -112,47 +100,44 @@ public class Conversation : ScriptableObject
 [System.Serializable]
 public class Dialogue
 {
-    public enum DialogueType
-    {
-        Simple,
-        Response,
-    }
-
     [SerializeField]
     public Vector2 Position;
     [SerializeField]
     private int dialogueID;
     [SerializeField]
-    private string characterName;
+    private int characterID;
     [SerializeField]
-    private string speechBubbleName;
+    private int speechBubbleIndex;
+    [SerializeField]
+    private DialogueType dialogueType;
     [SerializeField]
     private string sentence;
     [SerializeField]
-    private List<int> childDialogueIDs = new List<int>();
+    private List<int> childDialogueIDs;
 
-    public string CharacterName { get { return characterName; } private set { } }
     public int DialogueID { get { return dialogueID; } private set { } }
     public string Sentence { get { return sentence; } private set { } }
-    public string SpeechBubbleName { get { return speechBubbleName; } private set { } }
+    public int CharacterIndex { get { return characterID; } private set { } }
+    public int SpeechBubbleIndex { get { return speechBubbleIndex; } private set { } }
+    public DialogueType TypeOfDialogue { get { return dialogueType; } private set { } }
     public List<int> ChildDialogueIDs { get { return childDialogueIDs; } private set { } }
 
-    public Dialogue(int _id, string _characterName, string _sentence, string _speechBubbleName)
+    public Dialogue(int _id, DialogueType _dialogueType, string _sentence, int _characterIndex, int _speechBubbleIndex)
     {
         dialogueID = _id;
-        characterName = _characterName;
-        sentence = _sentence;
-        speechBubbleName = _speechBubbleName;
-    }
-
-    public DialogueType GetDialogueType()
-    {
-        if(childDialogueIDs.Count > 1)
+        dialogueType = _dialogueType;
+        if(dialogueType != DialogueType.Answers)
         {
-            return DialogueType.Response;
+            childDialogueIDs = new List<int>(1);
+        }
+        else
+        {
+            childDialogueIDs = new List<int>();
         }
 
-        return DialogueType.Simple;
+        sentence = _sentence;
+        characterID = _characterIndex;
+        speechBubbleIndex = _speechBubbleIndex;
     }
 
     public void EditSentence(string newSentence)
