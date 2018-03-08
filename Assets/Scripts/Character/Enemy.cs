@@ -22,6 +22,7 @@ namespace Knights.Characters.NPC.Enemies
             delayInAttack = 1f;
             typeOfFighter = TypeOfFighter.Enemy;
             Initialize();
+            GameManager.Instance.AddEnemy(this);
         }
 
         private void Update()
@@ -88,6 +89,12 @@ namespace Knights.Characters.NPC.Enemies
             }
         }
 
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            GameManager.Instance.Enemies.Remove(this);
+        }
+
         public override void TakeDamage(int damageAmount)
         {
             base.TakeDamage(damageAmount);
@@ -107,6 +114,11 @@ namespace Knights.Characters.NPC.Enemies
                     }
                 }
             }
+        }
+
+        public override void RecieveClickEvent(Collider2D collider)
+        {
+            base.RecieveClickEvent(collider);
         }
     }
 }

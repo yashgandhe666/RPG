@@ -42,19 +42,11 @@ namespace Knights.Characters
             gameObject.SetActive(false);
         }
 
-        public void OnDestroy()
+        protected virtual void OnDestroy()
         {
             InputManager.Instance.OnClickOnScreen -= RecieveClickEvent;
         }
 
-        public virtual void RecieveClickEvent(Collider2D collider)
-        {
-            if (!gameObject.activeSelf) return;
-            //sDebug.Log("BASE");
-            if(Collider2d == collider)
-            {
-                CanvasUIHandler.Instance.ShowSelectedCharacterStats(CharacterStats);
-            }  
-        }
+        public abstract void RecieveClickEvent(Collider2D collider);
     }
 }

@@ -52,6 +52,7 @@ public class FightManager : MonoBehaviour
         attackButton = CanvasUIHandler.Instance.FightUIPanel.transform.Find("AttackButton").GetComponent<Button>();
         cancelButton = CanvasUIHandler.Instance.FightUIPanel.transform.Find("NameAndIcon").Find("CancelButton").GetComponent<Button>();
         attackButton.interactable = false;
+        addEnemyButton.interactable = true;
         addEnemyButton.onClick.AddListener(AddEnemyOnScene);
         attackButton.onClick.AddListener(ArrangeAttackersInOrder);
         cancelButton.onClick.AddListener(CancelAttack);
@@ -109,6 +110,7 @@ public class FightManager : MonoBehaviour
         int rand = Random.Range(0, enemiesPrefabs.Count);
         GameObject gm = Instantiate(enemiesPrefabs[rand], transform.position + Vector3.right * 2f + new Vector3(transform.position.x + 2f, transform.position.y + Random.Range(-3, 3), 0f), Quaternion.identity);
         Enemy enemy = gm.GetComponent<Enemy>();
+        gm.SetActive(false);
         currentAciveEnemies.Add(enemy);
         if(currentAciveEnemies.Count >= GameManager.Instance.MaxEnemy)
         {
@@ -146,8 +148,8 @@ public class FightManager : MonoBehaviour
 
     private void ArrangeAttackersInOrder()
     {
-        isFightStart = true;
         GameManager.Instance.IsFightCurrentlyRunning = true;
+        GameManager.Instance.StartFight();
         CanvasUIHandler.Instance.FightUIPanel.SetActive(false);
         Debug.Log("Attackers are arranged in ascending order...");
         attackersInOrder.Clear();
@@ -178,6 +180,8 @@ public class FightManager : MonoBehaviour
             attackersInOrder.Add((IFighter)currentAttackers[index]);
             currentAttackers.RemoveAt(index);
         }
+
+        isFightStart = true;
     }
 
     private void CancelAttack()
